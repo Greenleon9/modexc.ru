@@ -21,3 +21,14 @@ const USER_CSS_JS = [
     'styles'=>[],
     'scripts'=>[]
 ];
+
+use core\base\exceptions\RouteException;
+function autoloadMainClasses($class_name)
+{
+    if (!@include_once $class_name.'.php')
+    {
+        throw new RouteException('Неверное имя файла для подключения-'.$class_name);
+    }
+}
+
+spl_autoload_register('autoloadMainClasses');
