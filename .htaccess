@@ -6,7 +6,7 @@ DirectoryIndex index.php
 
 RewriteEngine on
 
-RewriteCond %{REQUEST_FILENAME} !-f # Если запрошен не файл, то запрос передается
+RewriteCond %{REQUEST_FILENAME} !-f
 
-RewriteRule ^(.*) index.php         # в сценарий index.php
+RewriteRule ^(.*) index.php
 
