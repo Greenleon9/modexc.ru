@@ -1,10 +1,11 @@
 <?php
+//Проверка доступности файла из строки браузера
 defined('VG_ACCESS') or die('Доступ запрещен');
 
 const TEMPLATE = 'templates/default';
 const ADMIN_TEMPLATE = 'core/admin/views';
 
-const COOKIE_VERSION = '1.0';
+const COOKIE_VERSION = '1.0'; //Для принудительного перезахода пользователей
 const CRYPT_KEY = '';
 const COOKIE_TIME = 60;
 const BLOCK_TIME = 3;

@@ -1,5 +1,5 @@
 <?php
-
+//Проверка доступности файла из строки браузера
 defined('VG_ACCESS') or die('Доступ запрещен');
 
 const SITE_URL= 'http://modexc.ru';
