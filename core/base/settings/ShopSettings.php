@@ -6,6 +6,7 @@ namespace core\base\settings;
 use core\base\settings\Settings;
 
 
+// класс одиночка с дополнительными свойствами и методом
 class ShopSettings
 {
     static private $_instance;
@@ -13,7 +14,7 @@ class ShopSettings
 
     private $routes =[
         'admin'=> [
-            'name' => 'sudo',
+            'alias' => 'sudo',
         ]
     ];
 
@@ -48,7 +49,7 @@ class ShopSettings
 
         return self::$_instance;
     }
-    //перезапись свойств
+    //перезапись объединенных свойств
     protected function setProperty($properties){
         if ($properties){
             foreach ($properties as $name=>$property) {

@@ -10,7 +10,7 @@ class Settings //Класс шаблон одиночка
 
     private $routes = [
         'admin'=> [
-            'name'=> 'admin',
+            'alias'=> 'admin',
             'path'=> 'core/admin/controllers',
             'hrUrl'=> false
         ],
