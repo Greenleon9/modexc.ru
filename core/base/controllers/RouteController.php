@@ -46,8 +46,25 @@ class RouteController
           if (!$this->routes) throw new RouteException('Сайт находится на техническом 
           обслуживании');
 
-          if (strrpos($address_str, $this->routes['admin']['alias'] === strlen(PATH))){
-              //административная панель
+          if (strpos($address_str, $this->routes['admin']['alias'] === strlen(PATH))){
+
+              $url = explode('/', substr($address_str, strlen(PATH . $this->routes['admin']['alias'])+1));
+              if ($url[0] && is_dir($_SERVER['DOCUMENT_ROOT'] . PATH . $this->routes['plugins']['path'][$url[0]])){
+// Проверяем наличие папки с названием плагина, указанного в адресной строке
+                  $plugin = array_shift($url);
+                  $pluginSettings = $this->routes['settings']['path'] . ucfirst($plugin . 'Settings');
+                // Проверяем существует ли файл плагина и изменяем формат пути
+                  if (file_exists($_SERVER['DOCUMENT_ROOT'] . PATH . $pluginSettings . 'php')){
+                      $pluginSettings = str_replace('/', '\\', $pluginSettings);
+                      $this->routes = $pluginSettings::get('routes');
+                  }
+
+              }else{
+                  $this->controller = $this->routes['admin']['path'];
+                  $hrUrl = $this->routes['admin']['hrUrl'];
+                  $route = 'admin';
+              }
+
           }else{
               $url = explode('/', substr($address_str, strlen(PATH)));
               $hrUrl= $this->routes['user']['hrUrl'];
