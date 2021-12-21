@@ -11,8 +11,10 @@ class Settings //Класс шаблон одиночка
     private $routes = [
         'admin'=> [
             'alias'=> 'admin',
-            'path'=> 'core/admin/controllers',
-            'hrUrl'=> false
+            'path'=> 'core/admin/controllers/',
+            'hrUrl'=> false,
+            'routes'=> [
+            ]
         ],
         'settings'=> [
             'path'=> 'core/base/settings/'
@@ -22,7 +24,7 @@ class Settings //Класс шаблон одиночка
             'hrUrl'=> false
         ],
         'user'=>[
-            'path'=> 'core/user/controllers',
+            'path'=> 'core/user/controllers/',
             'hrUrl'=> true,
             'routes'=>[
 

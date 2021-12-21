@@ -41,20 +41,21 @@ class RouteController
       }
       $path = substr($_SERVER['PHP_SELF'], 0, strpos($_SERVER['PHP_SELF'], 'index.php'));
       if ($path===PATH){
-          $this->routes = settings::get('routes');
+          $this->routes = Settings::get('routes');
 
           if (!$this->routes) throw new RouteException('Сайт находится на техническом 
           обслуживании');
 
-          if (strpos($address_str, $this->routes['admin']['alias'] === strlen(PATH))){
+          if (strpos($address_str, $this->routes['admin']['alias']) === strlen(PATH)){
 
               $url = explode('/', substr($address_str, strlen(PATH . $this->routes['admin']['alias'])+1));
-              if ($url[0] && is_dir($_SERVER['DOCUMENT_ROOT'] . PATH . $this->routes['plugins']['path'][$url[0]])){
+              if ($url[0] && is_dir($_SERVER['DOCUMENT_ROOT'] . PATH . $this->routes['plugins']['path'] . $url[0])){
+
 //Проверяем наличие папки с названием плагина, указанного в адресной строке
                   $plugin = array_shift($url);
                   $pluginSettings = $this->routes['settings']['path'] . ucfirst($plugin . 'Settings');
                 //Проверяем существует ли файл плагина и изменяем формат пути
-                  if (file_exists($_SERVER['DOCUMENT_ROOT'] . PATH . $pluginSettings . 'php')){
+                  if (file_exists($_SERVER['DOCUMENT_ROOT'] . PATH . $pluginSettings . '.php')){
                       $pluginSettings = str_replace('/', '\\', $pluginSettings);
                       $this->routes = $pluginSettings::get('routes');
                   }
@@ -75,7 +76,6 @@ class RouteController
           }else{
               $url = explode('/', substr($address_str, strlen(PATH)));
               $hrUrl= $this->routes['user']['hrUrl'];
-
               $this->controller = $this->routes['user']['path'];
               $route = 'user';
           }
@@ -120,7 +120,7 @@ class RouteController
       if (!empty($arr[0])){
           if ($this->routes[$var]['routes'][$arr[0]]){
               $route = explode('/', $this->routes[$var]['routes'][$arr[0]]);
-              $this->controller .= ucfirst($route.'Controller');
+              $this->controller .= ucfirst($route[0].'Controller');
           }else {
               $this->controller .= ucfirst($arr[0].'Controller');
           }
