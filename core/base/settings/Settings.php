@@ -21,7 +21,8 @@ class Settings //Класс шаблон одиночка
         ],
         'plugins'=> [
             'path'=> 'core/plugins/',
-            'hrUrl'=> false
+            'hrUrl'=> false,
+            'dir'=> false
         ],
         'user'=>[
             'path'=> 'core/user/controllers/',
