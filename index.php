@@ -16,4 +16,3 @@ catch (RouteException $e)
 {
     exit($e->getMessage());
 }
-echo "ПРивет!";
