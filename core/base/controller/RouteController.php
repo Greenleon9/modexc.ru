@@ -1,7 +1,7 @@
 <?php
 
 
-namespace core\base\controllers;
+namespace core\base\controller;
 
 
 use core\base\exceptions\RouteException;
@@ -15,7 +15,7 @@ class RouteController
   protected $routes;
   protected $controller;
   protected $inputMethod;
-  protected $outputMethod;
+  protected string $outputMethod;
   protected $parameters;
 
   private function __clone()
@@ -43,13 +43,9 @@ class RouteController
       if ($path===PATH){
           $this->routes = Settings::get('routes');
 
-          if (!$this->routes) throw new RouteException('Сайт находится на техническом 
-          обслуживании');
+          if (!$this->routes) throw new RouteException('Сайт находится на техническом обслуживании');
 
-          $url = explode('/', substr($address_str, strlen(PATH)));
-//Проверяем
-          if ($url[0] && $url[0]=== $this->routes['admin']['alias'] ){
-              array_shift($url);
+          if (strpos($address_str, $this->routes['admin']['alias']) === strlen(PATH)){
 
               $url = explode('/', substr($address_str, strlen(PATH . $this->routes['admin']['alias'])+1));
               if ($url[0] && is_dir($_SERVER['DOCUMENT_ROOT'] . PATH . $this->routes['plugins']['path'] . $url[0])){
@@ -77,7 +73,7 @@ class RouteController
               }
 
           }else{
-
+              $url = explode('/', substr($address_str, strlen(PATH)));
               $hrUrl= $this->routes['user']['hrUrl'];
               $this->controller = $this->routes['user']['path'];
               $route = 'user';
@@ -133,6 +129,7 @@ class RouteController
       $this->inputMethod = $route[1] ? $route[1] : $this->routes['default']['inputMethod'];
       $this->outputMethod = $route[2] ? $route[2] : $this->routes['default']['outputMethod'];
 
+      return;
   }
 
 }
