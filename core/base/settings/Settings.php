@@ -6,13 +6,13 @@ namespace core\base\settings;
 
 class Settings //Класс шаблон одиночка
 {
-    private static $_instance;
+    private static object $_instance;
 
     private $routes = [
         'admin'=> [
             'alias'=> 'admin',
-            'path'=> 'core/admin/controllers/',
-            'hrUrl'=> false,
+            'path'=> 'core/admin/controller/',
+            'hrUrl'=> false, //человеко-понятные ссылки
             'routes'=> [
             ]
         ],
@@ -21,11 +21,11 @@ class Settings //Класс шаблон одиночка
         ],
         'plugins'=> [
             'path'=> 'core/plugins/',
-            'hrUrl'=> false,
+            'hrUrl'=> false, //человеко-понятные ссылки
             'dir'=> false
         ],
         'user'=>[
-            'path'=> 'core/user/controllers/',
+            'path'=> 'core/user/controller/',
             'hrUrl'=> true,
             'routes'=>[
 
@@ -37,13 +37,12 @@ class Settings //Класс шаблон одиночка
             'outputMethod'=> 'outputData'
         ]
     ];
-    private $templateArr = [
+    private array $templateArr = [
         'text'=> ['name', 'phone' , 'address'],
         'textarea'=> ['content', 'keywords']
     ];
     private function __construct()
     {
-
     }
     private function __clone()
     {
@@ -63,7 +62,8 @@ class Settings //Класс шаблон одиночка
         return self::$_instance = new self;
     }
     //склеивание всех свойств с заменой совпадающих значений
-    public function clueProperties($class){
+    public function clueProperties($class): array
+    {
         $baseProperties = [];
 
         foreach ($this as $name=> $item){
@@ -78,10 +78,9 @@ class Settings //Класс шаблон одиночка
        return $baseProperties;
     }
 // метод для добавления и перезаписи свойств
-    public function arrayMergeRecursive(){
-
+    public function arrayMergeRecursive()
+    {
         $arrays = func_get_args();
-
         $base = array_shift($arrays); // извлекаем первый элемент массива
 
         // проходим по остальным элементам массива
@@ -91,7 +90,7 @@ class Settings //Класс шаблон одиночка
                     $base[$key] = $this->arrayMergeRecursive($base[$key], $value);
                 } else {
                     if (is_int($key)){
-                        if (!in_array($value, $base)) array_push($base, $value);
+                        if (!in_array($value, $base)) $base[]=$value;
                         continue;
                     }
                     $base[$key] =$value;

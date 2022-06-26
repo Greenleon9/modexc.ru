@@ -9,10 +9,10 @@ use core\base\settings\Settings;
 // класс одиночка с дополнительными свойствами и методом
 class ShopSettings
 {
-    static private $_instance;
-    private $baseSettings;
+    static private object $_instance;
+    private object $baseSettings;
 
-    private $routes =[
+    private array $routes =[
         'plugins'=> [
             'dir'=> false,
             'routes'=> [
@@ -21,14 +21,13 @@ class ShopSettings
         ],
     ];
 
-    private $templateArr = [
+    private array $templateArr = [
         'text'=> ['price', 'short'],
         'textarea'=> ['goods_content']
     ];
 
     private function __construct()
     {
-
     }
     private function __clone()
     {
@@ -46,7 +45,7 @@ class ShopSettings
             return self::$_instance;
         }
         self::$_instance = new self;
-        self::$_instance->baseSettings = Settings::instance();
+        self::$_instance->baseSettings = Settings::instance(); //ссылка на объект класса Settings
         $baseProperties = self::$_instance->baseSettings->clueProperties(get_class());
         self::$_instance->setProperty($baseProperties);
 
