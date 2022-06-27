@@ -6,7 +6,7 @@ namespace core\base\settings;
 
 class Settings //Класс шаблон одиночка
 {
-    private static object $_instance;
+    private static $_instance;
 
     private $routes = [
         'admin'=> [
