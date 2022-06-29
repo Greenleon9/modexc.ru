@@ -3,7 +3,7 @@
 defined('VG_ACCESS') or die('Доступ запрещен');
 
 const SITE_URL= 'http://modexc.ru';
-const PATH = '/modexc.ru/';
+const PATH = '/';
 
 const HOST = 'localhost';
 const USER = 'root';

@@ -9,7 +9,7 @@ use core\base\settings\Settings;
 // класс одиночка с дополнительными свойствами и методом
 class ShopSettings
 {
-    static private object $_instance;
+    static private $_instance;
     private object $baseSettings;
 
     private array $routes =[

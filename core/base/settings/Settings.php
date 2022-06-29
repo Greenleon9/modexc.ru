@@ -14,6 +14,7 @@ class Settings //Класс шаблон одиночка
             'path'=> 'core/admin/controller/',
             'hrUrl'=> false, //человеко-понятные ссылки
             'routes'=> [
+
             ]
         ],
         'settings'=> [
